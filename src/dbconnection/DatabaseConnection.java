@@ -102,5 +102,21 @@ public class DatabaseConnection {
 		
 		return res;
 	}
+	
+	public ResultSet getUser() {
+		ResultSet res = null;
+		try {
+			preparedStatement = connection.
+					prepareStatement("SELECT * FROM `users`");
+			
+			res = preparedStatement.executeQuery();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
 
 }

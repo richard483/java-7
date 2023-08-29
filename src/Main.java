@@ -4,7 +4,7 @@ import dbconnection.DatabaseConnection;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.User;
-import view.LoginPage;
+import view.AuthPage;
 
 public class Main extends Application{
 	
@@ -20,13 +20,25 @@ public class Main extends Application{
 		
 		// ? System.out.println("Success create user!") : System.out.println("Error creating user");
 //		db.createUser(user);
+		printUserData();
 	}
 	
 	public void printUserData() {
-		db.resultSet = db.execQuery("SELECT * FROM users");
+//		db.resultSet = db.execQuery("SELECT * FROM `users`");
+		db.resultSet = db.getUser();
 		User user;
 		
 		try {
+//			while (db.resultSet.next()) {
+//				user = new User(
+//						Integer.valueOf(db.resultSet.getObject("id").toString()),
+//						db.resultSet.getObject(2).toString(),
+//						db.resultSet.getObject(3).toString(),
+//						db.resultSet.getObject(4).toString(),
+//						Integer.valueOf(db.resultSet.getObject(5).toString()));
+//				System.out.println(user.toString());
+//			}
+			
 			while (db.resultSet.next()) {
 				user = new User(
 						Integer.valueOf(db.resultSet.getObject("id").toString()),
@@ -43,7 +55,7 @@ public class Main extends Application{
 	}
 
 	public static void main(String[] args) {
-//		new Main();
+		new Main();
 		launch(args);
 
 	}
@@ -51,7 +63,7 @@ public class Main extends Application{
 	@Override
 	public void start(Stage stage) throws Exception {
 		// TODO Auto-generated method stub
-		LoginPage loginPage = new LoginPage(stage, db);
+		AuthPage loginPage = new AuthPage(stage, db, false);
 		stage.setScene(loginPage.getScene());
 		stage.show();
 	}
